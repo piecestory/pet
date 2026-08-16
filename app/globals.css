@@ -1,0 +1,444 @@
+:root {
+  /* Brand */
+  --primary: #3a2418;
+  --secondary: #5a3b26;
+
+  /* Gold */
+  --accent: #b68a4a;
+  --accent-light: #d4b07a;
+  --gold: #c79a52;
+
+  /* Background */
+  --background: #f8f4ee;
+  --section: #efe7dd;
+  --surface: #fffdf9;
+
+  /* Borders */
+  --border: #ddd2c4;
+
+  /* Typography */
+  --text: #2b211b;
+  --text-secondary: #6b5b50;
+
+  /* Status */
+  --success: #6d8a55;
+  --warning: #d18a35;
+  --error: #a84538;
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius-lg: 16px;
+
+  /* Fonts (يتم حقنها عبر next/font في app/layout.tsx) */
+  --font-ar: var(--font-ar-loaded), "IBM Plex Sans Arabic", "Cairo", sans-serif;
+  --font-en: var(--font-en-loaded), "Inter", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-ar);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* أزرار عامة */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.25s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  color: var(--surface);
+}
+.btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.btn-dark {
+  background: var(--primary);
+  color: var(--surface);
+}
+.btn-dark:hover {
+  background: var(--secondary);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* بطاقة عامة */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 18px rgba(58, 36, 24, 0.06);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  box-shadow: 0 10px 30px rgba(58, 36, 24, 0.12);
+  transform: translateY(-3px);
+}
+
+.section-label {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   نظام "لوحة بديلة" — يظهر خلف الصورة، ويُستبدل تلقائيًا بمجرد
+   توفر صورة حقيقية للمنتج (انظر ProductCard: img مع onError).
+   لا حاجة لحذف هذا القسم لاحقًا؛ هو دائمًا الطبقة الخلفية.
+   ============================================================ */
+.ph {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, #f6efe1 0%, #e2cda0 100%);
+}
+.ph::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(135deg, rgba(58, 36, 24, 0.025) 0 1px, transparent 1px 13px);
+}
+.ph::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(58, 36, 24, 0.22);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.ph b {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  border: 1px solid rgba(58, 36, 24, 0.32);
+  transform: translate(-50%, -50%) rotate(45deg);
+  display: block;
+}
+.ph-2 { background: linear-gradient(150deg, #efe1c6 0%, #d3b17f 100%); }
+.ph-3 { background: linear-gradient(150deg, #f0e6d6 0%, #c9a06a 100%); }
+
+/* لوحة داكنة — للـ Hero والبانرات الترويجية */
+.art-dark {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4a2f1e 0%, #2b1a10 62%, #1c110a 100%);
+}
+.art-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 15px);
+}
+.art-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 30%, rgba(199, 154, 82, 0.22), transparent 55%);
+}
+
+/* زخرفة الإناء — توقيع بصري مشترك لهوية المعرض */
+.vase-motif {
+  position: absolute;
+  color: var(--gold);
+  opacity: 0.22;
+  pointer-events: none;
+}
+.vase-motif svg { width: 100%; height: 100%; }
+
+/* زوايا إطار المعرض — توقيع "المعرض الكلاسيكي" */
+.frame-corners { position: absolute; inset: 18px; pointer-events: none; z-index: 2; }
+.frame-corners i { position: absolute; width: 26px; height: 26px; border-color: var(--gold); }
+.frame-corners i:nth-child(1) { top: 0; right: 0; border-top: 2px solid; border-right: 2px solid; }
+.frame-corners i:nth-child(2) { top: 0; left: 0; border-top: 2px solid; border-left: 2px solid; }
+.frame-corners i:nth-child(3) { bottom: 0; right: 0; border-bottom: 2px solid; border-right: 2px solid; }
+.frame-corners i:nth-child(4) { bottom: 0; left: 0; border-bottom: 2px solid; border-left: 2px solid; }
+
+/* شارة "نادرة" لبطاقات التحف النادرة */
+.rare-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: var(--primary);
+  color: var(--gold);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 5px 11px;
+  border-radius: 99px;
+  z-index: 2;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   نظام الاستجابة (Responsive System)
+   ============================================================ */
+
+/* شبكات المنتجات — تتقلص تدريجيًا حسب حجم الشاشة */
+.grid-auto {
+  display: grid;
+  gap: 20px;
+}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, 1fr); }
+.grid-6 { grid-template-columns: repeat(6, 1fr); }
+
+@media (max-width: 1100px) {
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .grid-6, .grid-5, .grid-4, .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-auto { gap: 12px; }
+}
+
+@media (max-width: 480px) {
+  .grid-6, .grid-5, .grid-4, .grid-3, .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* تخطيط عمود جانبي + محتوى (المتجر، حساب العميل) */
+.layout-sidebar {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+}
+@media (max-width: 900px) {
+  .layout-sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* تخطيط محتوى + ملخص جانبي (السلة، إتمام الطلب) */
+.layout-split {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+}
+@media (max-width: 900px) {
+  .layout-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* تخطيط صفحة المنتج (صور + تفاصيل) */
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+}
+@media (max-width: 900px) {
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* شبكة الفوتر */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+  gap: 40px;
+}
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+@media (max-width: 480px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* لوحة الإدارة: عمود جانبي + محتوى */
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--background);
+}
+.admin-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+}
+.admin-main {
+  flex: 1;
+  padding: 32px;
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .admin-shell {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+  }
+  .admin-nav {
+    flex-direction: row !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px !important;
+    padding-bottom: 4px;
+  }
+  .admin-nav a {
+    flex-shrink: 0;
+  }
+  .admin-main {
+    padding: 20px 16px;
+  }
+}
+
+/* الهيدر */
+.desktop-only {
+  display: flex;
+}
+.mobile-only {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .desktop-only {
+    display: none;
+  }
+  .mobile-only {
+    display: flex;
+  }
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 33, 27, 0.5);
+  z-index: 100;
+}
+.mobile-menu-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 82%;
+  max-width: 340px;
+  background: var(--surface);
+  z-index: 101;
+  padding: 24px 20px;
+  overflow-y: auto;
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.15);
+}
+
+/* الصفحة الرئيسية: نص الـ Hero يتقلص على الجوال */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 30px !important;
+  }
+  .hero-text {
+    font-size: 14px !important;
+  }
+}
+
+/* الجداول القابلة للتمرير أفقيًا على الجوال (لوحة الإدارة، الطلبات) */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-scroll table {
+  min-width: 600px;
+}
+
+/* شريط التصنيفات المتراكب فوق الـ Hero */
+.category-strip {
+  margin-top: -70px;
+}
+@media (max-width: 900px) {
+  .category-strip {
+    margin-top: -40px;
+  }
+}
+@media (max-width: 480px) {
+  .category-strip {
+    margin-top: 16px;
+  }
+}
+
+/* حشوة صفحة موحّدة ومتجاوبة */
+.page-padding {
+  padding: 40px;
+}
+@media (max-width: 768px) {
+  .page-padding {
+    padding: 24px 16px;
+  }
+}
+
